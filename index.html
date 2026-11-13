@@ -22,6 +22,28 @@
   .card { background:var(--card); border-radius:10px; padding:18px 20px; border-left:6px solid var(--teal); }
   .card:nth-child(2) { border-color:var(--gold); } .card:nth-child(3) { border-color:var(--orange); }
   .card h2 { font-size:18px; margin:0 0 6px; } .card p { margin:0; color:var(--muted); font-size:16px; }
+
+  .slide { margin:44px 0 20px; background:var(--card); border-radius:16px; padding:clamp(24px,5vw,48px); border-left:10px solid var(--deep); box-shadow:0 10px 40px #0002; }
+  .slide h2 { font-family:Georgia, serif; font-style:italic; font-size:clamp(26px,5vw,42px); margin:0 0 20px; }
+  .slide ul { margin:0; padding:0 0 0 1.2em; display:grid; gap:18px; }
+  .slide li { font-size:clamp(17px,2.4vw,22px); line-height:1.5; }
+  .slide strong { color:var(--deep); }
+  details.report { margin:0 0 8px; }
+  details.report > summary { cursor:pointer; font-weight:700; padding:12px 18px; border:2px solid var(--deep); border-radius:8px; display:inline-block; list-style:none; }
+  details.report > summary::-webkit-details-marker { display:none; }
+  details.report > summary::after { content:" ▾"; }
+  details.report[open] > summary::after { content:" ▴"; }
+  .rapport { background:var(--card); border-radius:10px; padding:8px clamp(16px,4vw,30px) 28px; margin-top:14px; overflow-wrap:anywhere; }
+  .rapport h1 { font-family:Georgia, serif; font-style:italic; font-size:clamp(26px,5vw,34px); margin:22px 0 4px; }
+  .rapport h2 { font-size:21px; margin:28px 0 8px; color:var(--deep); }
+  .rapport p, .rapport li { font-size:16.5px; }
+  .rapport ul, .rapport ol { padding-left:22px; }
+  .rapport li { margin:6px 0; }
+  .rapport li > p { margin:0; }
+  .rapport .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; }
+  .rapport table { border-collapse:collapse; width:100%; min-width:720px; font-size:15px; }
+  .rapport th, .rapport td { text-align:left; vertical-align:top; padding:8px 10px; border:1px solid #8a7a5f66; }
+  .rapport th { color:var(--deep); background:#8a7a5f1a; font-size:14px; }
   footer { margin-top:40px; color:var(--muted); font-size:14px; }
 </style>
 </head>
@@ -42,6 +64,42 @@
     <section class="card"><h2>Riktig vägberäkning</h2><p>Bil och cykel på ett regionalt OpenStreetMap-vägnät i sydvästra Skåne. Ingen kollektivtrafik eller rusning.</p></section>
     <section class="card"><h2>Ingen SCB-data i den öppna demon</h2><p>Filmen visar hur en SCB-adress bekräftar en plats. Här används i stället en tydligt märkt påhittad registerrad, så att samma regel syns i arbete.</p></section>
   </div>
+
+  <section class="slide" aria-labelledby="slide-title">
+    <h2 id="slide-title">Vad berikningen ger</h2>
+    <ul>
+      <li><strong>Dubbelt så många säkra arbetsplatser.</strong> Med SCB:s arbetsställen och en språkmodell (BERT) som läser annonstexten går andelen annonser med pålitlig arbetsplats från ungefär 1 av 6 till drygt 1 av 3, räknat på 43 229 aktiva annonser.</li>
+      <li><strong>Osäkerheten blir synlig.</strong> 28 612 annonser får en tydlig orsak, som bemanning, arbete hos kund, flera platser eller saknad adress, i stället för en missvisande punkt. Jobb som bevisligen ligger utanför pendlingsavståndet sorteras bort.</li>
+      <li><strong>E-postuppföljning tar nästa steg.</strong> Ett mejl där arbetsgivaren bekräftar vår föreslagna adress med ett klick kan lösa 2 266 annonser hos 991 arbetsgivare. Ett pilotutskick till de 40 största arbetsgivarna når cirka 6 000 annonser till.</li>
+    </ul>
+  </section>
+
+  <details class="report">
+    <summary>Läs rapporten</summary>
+    <article class="rapport">
+<h1 id="berikade-annonser-vad-det-ger">Berikade annonser: vad det ger</h1>
+<p><time data-atom="date" datetime="2026-11-13">2026-11-13</time> · Fredik &amp; Adam</p>
+<h2 id="syftet">Syftet</h2>
+<p>Den arbetssökande ska få fler jobb att söka genom att se vilka jobb som faktiskt ligger inom pendlingsavstånd. Det fungerar bara om vi vet var jobbet utförs. I dag är annonsens adress ofta huvudkontorets, rekryterarens eller bemanningsföretagets, inte arbetsplatsens.</p>
+<h2 id="vad-berikningen-ger">Vad berikningen ger</h2>
+<p>Berikningen ger färre men säkrare träffar och säger tydligt när vi är osäkra. Underlaget är alla 43 229 aktiva annonser den 11 november 2026.</p>
+<ul><li><p><strong>Fler säkra platser.</strong> I dag kan vi lita på adressen för ungefär en av sex annonser. Med berikningen är det drygt en av tre: en fördubbling. För den sökande betyder det att fler restider på kartan stämmer, så att de vågar söka jobb de annars hade missat eller valt bort.</p></li><li><p><strong>Vi vet vad som <em>inte</em> är inom pendlingsavstånd.</strong> När vi vet var jobbet faktiskt ligger och det är utanför gränsen, visas inte annonsen, till exempel när adressen var ett kansli i närheten men texten nämner en skola i en annan ort. Vet vi inte var jobbet ligger, tas annonsen inte bort utan visas som osäker plats. Exempel: för en sökande i Kumla som cyklar 25 min ger Ursprungligt 67 träffar, medan Berikat ger 16 säkra träffar, 35 med osäker plats och 16 som ligger utanför.</p></li><li><p><strong>Vi vet när vi är osäkra.</strong> Bemanning, arbete hos kund, flera arbetsplatser och saknad adress visas som &quot;osäker plats&quot; med orsak. De göms aldrig.</p></li><li><p><strong>Det går att granska.</strong> I demon syns de borttagna annonserna som röda kryss med båda platserna, så att man själv kan bedöma hur fel annonsens adress var.</p></li></ul>
+<h2 id="så-fungerar-det">Så fungerar det</h2>
+<ol><li><p><strong>SCB:s register över arbetsställen.</strong> Vi kontrollerar om annonsens adress är ett av arbetsgivarens registrerade arbetsställen. Saknas adress och arbetsgivaren bara har ett arbetsställe i kommunen, tar vi det.</p></li><li><p><strong>Annonstexten.</strong> En språkmodell (BERT) letar efter meningar om var jobbet utförs, till exempel &quot;placeringsort Brändåsen, Kumla&quot;, ett namngivet sjukhus eller arbete hos kund.</p></li><li><p><strong>Vad vi vet om arbetsplatsen.</strong> Varje annons får besked om platsen är bekräftad, trolig eller osäker, och i så fall varför: adress saknas, flera arbetsplatser, arbete hos kund eller bemanning. En bemanningsannons har ofta en adress, men den är bemanningsföretagets kontor och inte där jobbet utförs. Beskedet avgör om annonsen får en punkt med restid eller bara en kommun.</p></li><li><p><strong>Restid.</strong> Bil- och cykeltid räknas på riktiga vägar från den sökandes adress. Kollektivt och gång är uppskattningar.</p></li></ol>
+<h2 id="potential-i-att-kontakta-arbetsgivarna">Potential i att kontakta arbetsgivarna</h2>
+<p>Analysen pekar ut vilka arbetsgivare det lönar sig att fråga. För varje arbetsgivare räknar vi hur många annonser som har osäker plats och varför. SCB visar om adressen saknas eller avviker från arbetsställena. Textanalysen (BERT) skiljer jobb på en fast plats, där en fråga om adressen löser det, från jobb hos kund eller på flera platser, där en adress inte hjälper. Arbetsgivare med många lösbara annonser hamnar överst. Hur troligt det är att de svarar räknar modellen inte ut, det är vår bedömning per typ av arbetsgivare.</p>
+<p><strong>Mest lovande: be dem bekräfta ett förslag.</strong> När annonsen saknar adress, arbetsgivaren bara har ett arbetsställe i kommunen enligt SCB och texten inte tyder på kund- eller flerplatsarbete, kan vi föreslå adressen direkt. Arbetsgivaren klickar &quot;Ja, adressen ska vara Industrigatan 4&quot; i mejlet, och annonsen uppdateras automatiskt. Det gäller 2 266 annonser hos 991 arbetsgivare. Nästan alla (939) är små arbetsgivare med högst fem sådana annonser, och för dem ger ett klick troligen flest svar. Ibland är SCB:s förslag bara ett namn, som &quot;Huvudkontor&quot;, och då ställer vi i stället frågan var jobbet utförs. Tabellen nedan gäller de öppna frågorna, där vi inte har något förslag att bekräfta.</p>
+<p>Volymen ligger hos ett fåtal stora arbetsgivare, men de har också svårast att svara, eftersom de måste gå igenom hundratals annonser från sina rekryteringssystem. 28 612 annonser från 4 186 arbetsgivare har en plats vi inte kan fastställa, och redan de 50 största i varje grupp nedan står för runt 12 000 av dem. Antalen kommer ur datat. Effekt och svarschans är vår bedömning, inte uppmätt.</p>
+<div class="tablewrap"><table><thead><tr><th>Grupp</th><th>Antal AG</th><th>Annonser</th><th>Effekt</th><th>Chans att de svarar</th><th>Vad vi frågar</th></tr></thead><tbody><tr><td>Offentliga (regioner, kommuner, myndigheter)</td><td>453</td><td>5 868, varav 2 300 hos de 20 största</td><td>Hög</td><td>Medel: hundratals annonser från ett rekryteringssystem är tungt att gå igenom</td><td>Ange besöksadressen där tjänsten utförs</td></tr><tr><td>Stora bemanningsföretag (de 50 största)</td><td>50</td><td>5 695</td><td>Hög</td><td>Låg till medel: många annonser, och kunden kan vara affärshemlighet</td><td>Ange placeringsort, eller att jobbet är rörligt</td></tr><tr><td>Stora privata arbetsgivare (de 50 största)</td><td>50</td><td>3 334</td><td>Medel</td><td>Medel</td><td>Ange besöksadressen. Bifoga SCB-avvikelsen eller citatet</td></tr><tr><td>Konsultbolag som arbetar hos kund</td><td>få</td><td>ca 600 hos de 4 största</td><td>Låg</td><td>Låg</td><td>Behandla som bemanning. Fråga om ort</td></tr><tr><td>Övriga små arbetsgivare</td><td>ca 3 600</td><td>ca 13 000</td><td>Låg per kontakt</td><td>Hög när vi har ett adressförslag, annars okänd</td><td>Be om ett klick på den adress vi föreslår. Saknas förslag: krav på arbetsplatsadress i annonsformuläret</td></tr></tbody></table></div>
+<p><strong>Förslag:</strong> börja med enklicksbekräftelsen för de 2 266 annonserna hos 991 AG. Gör parallellt ett pilotutskick till de 20 största offentliga arbetsgivarna och de 20 största bemanningsföretagen, som täcker cirka 6 000 annonser, och svaren blir samtidigt det facit vi saknar för att mäta hur ofta berikningen har rätt.</p>
+<h2 id="demosökningar">Demosökningar</h2>
+<p>Fyra sökningar som visar var sin styrka. Alla är körda i demon med riktiga restider och ger samma resultat varje gång.</p>
+<div class="tablewrap"><table><thead><tr><th>Sökning</th><th>Visar</th><th>Ursprungligt</th><th>Berikat</th><th>Peka på</th></tr></thead><tbody><tr><td>Drottninggatan 20, Örebro · bil 35 min · Personliga assistenter</td><td>Jobb som inte är pendlingsbara</td><td>76 träffar</td><td>9 säkra, 35 osäkra, 32 borttagna</td><td>&quot;Personlig assistent i Luleå&quot; ligger 1 km bort i Ursprungligt, eftersom adressen är bolagets kontor. Rubriken avslöjar felet.</td></tr><tr><td>Drottninggatan 20, Örebro · bil 35 min · Grundskollärare</td><td>Texten flyttar jobbet till rätt skola</td><td>29 träffar</td><td>17 säkra, 8 osäkra, 4 borttagna</td><td>&quot;Lärare till Centralskolan&quot; i Laxå ligger 15 min bort i Ursprungligt, men skolan ligger utanför gränsen.</td></tr><tr><td>Drottninggatan 20, Örebro · bil 35 min · Lager- och terminalpersonal</td><td>Ärlig osäkerhet</td><td>29 träffar</td><td>3 säkra, 23 osäkra, 3 borttagna</td><td>16 är bemanning där kunden är okänd, och flera saknar adress. De ligger kvar med orsak, men låtsas inte vara säkra.</td></tr><tr><td>Kumla torg · bil 35 min · Personliga assistenter</td><td>Jobb som annars saknas</td><td>58 träffar</td><td>8 säkra, varav 5 nya</td><td>Annonser utan adress får en adress via SCB och en restid, till exempel &quot;Personlig assistent till pojke&quot;. De syns inte alls i Ursprungligt.</td></tr></tbody></table></div>
+<p>Undvik i demon: Kornellen SÄBO och Örebro kommuns annonser med boxadress. De är svåra att förklara.</p>
+<h2 id="begränsningar">Begränsningar</h2>
+<ul><li><p><strong>Facit saknas.</strong> I ett stickprov beskrev 8 av 20 &quot;säkra&quot; annonser ändå arbete hos kund eller på flera platser. Restiderna är därför alltid uppskattningar.</p></li><li><p><strong>Regler kan missa.</strong> Ibland står platsen tydligt i texten men fångas inte, till exempel McDonald&#39;s Brändåsen i Kumla. Det går att förbättra i nästa steg.</p></li><li><p><strong>Demon täcker Örebro län</strong> med riktiga vägar för bil och cykel.</p></li></ul>
+    </article>
+  </details>
   <footer>Prototyp, inte en produktionstjänst. Kartdata © OpenStreetMap contributors. Filmens miljöbilder är AI-genererade på egen dator.</footer>
 </main>
 </body>
