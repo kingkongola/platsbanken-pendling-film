@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:15,208
+Sök på Malmö bland skoljobben, och du får sex annonser. En av dem lovar cirka tjugofem minuter från Malmö. Det stämmer, med bil. Med cykel tar det över två timmar.
+
+2
+00:00:15,208 --> 00:00:28,000
+I dag måste du själv lista ut var varje jobb finns och slå upp resan, exempelvis med Google Maps eller andra karttjänster. Det arbetet vill vi flytta till tjänsten.
+
+3
+00:00:28,000 --> 00:00:35,125
+Säg att du bor vid Malmö central, cyklar och vill ha högst tjugofem minuter enkel väg.
+
+4
+00:00:35,125 --> 00:00:48,708
+Ett klick. Nu har varje annons ett besked. Två jobb ryms. Ett har okänd restid och visas ändå. Tre döljs, eftersom resan blir för lång, men de ligger kvar bakom en knapp.
+
+5
+00:00:48,708 --> 00:01:03,083
+Vi tänjer gränsen till trettiofem minuter. Barnskötarjobbet kommer tillbaka. Och Dalslundskolan i Åkarp, som ligger i Burlöv. Ett vanligt kommunfilter hade slängt det jobbet, fast det bara är en halvtimme bort.
+
+6
+00:01:03,083 --> 00:01:13,417
+Anderslöv ligger kvar dolt. Byter vi till bil blir det tjugonio minuter, och annonsen dyker upp. Ungefär som den lovade, fast för bilister.
+
+7
+00:01:13,417 --> 00:01:17,792
+Hur fungerar det? Tre lager, byggda på varandra.
+
+8
+00:01:17,792 --> 00:01:25,667
+Längst ner räknar routingmotorn restid längs vägnätet. Den vet ingenting om jobb eller om din gräns.
+
+9
+00:01:25,667 --> 00:01:51,750
+Pendlingslagret äger all logik kring själva pendlingen: ditt färdsätt och din gräns, resan åt båda hållen med restid och avstånd, och vad som räknas som inom, över eller okänt. Den längsta resan avgör, och saknas underlag blir svaret okänt, aldrig för långt. Lagret kan också sammanfatta flera möjliga arbetsplatser eller ett helt område.
+
+10
+00:01:51,750 --> 00:01:58,958
+Överst kopplar annonslagret svaret till rätt annons och väger in hur säker platsen är.
+
+11
+00:01:58,958 --> 00:02:15,833
+Ta Drottning Blankas gymnasieskola. Annonsen saknar gatuadress. Men koordinaten ligger trettiofyra meter från skolans adress i SCB:s arbetsställeregister. Två källor är överens, så vi vågar räkna: sex minuter med cykel.
+
+12
+00:02:15,833 --> 00:02:26,292
+Bemanningsannonsen däremot gäller skolor runt om i Sverige. Där finns inget att räkna till, så restiden är okänd. Etiketten bemanning satte vi för hand.
+
+13
+00:02:26,292 --> 00:02:49,250
+Och tekniken? Vägnätet delas upp i små geografiska filer, så kallad sharding. Totalt blir det ungefär en gigabyte, men i väldigt många små filer, som kan ligga i S3, Amazons fillager. Webbläsaren hämtar bara bitarna den behöver och räknar själv. Ingen routingserver att drifta.
+
+14
+00:02:49,250 --> 00:03:01,625
+Det här klarar den inte än: kollektivtrafik, rusningstrafik och promenaden från parkeringen. Och demon bygger på vägnätet i sydvästra Skåne, inte hela Sverige.
+
+15
+00:03:01,625 --> 00:03:11,083
+Färre annonser att kolla själv, restider där platsen går att belägga, och ett ärligt besked när den inte gör det.

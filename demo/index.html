@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platsbanken - Pendling demo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+      integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+      integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" crossorigin src="./assets/index-Cey75gGM.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-DclECHGd.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-Dgt5K7Z7.css">
+  </head>
+  <body>
+    <header class="banner">
+      <p id="banner-text"><span class="poc-badge">PoC</span> Prototyp: pendlingssökning. Visar hur ett geo-API kan svara på frågan ”vilka jobb kan jag faktiskt pendla till?” – restid per färdmedel och klockslag, hur säkert vi vet var arbetsplatsen ligger, och vilka orter folk faktiskt pendlar till. Geo-API:et (rutt, arbetsplats och pendling) är mockat och märkt mock. Annonserna kommer från JobSearch API, och yrken och kompetenser från Yrkesväljaren och Kompetensväljaren (headless-utkast). Alla anrop visas i rutorna.</p>
+      <div id="api-switch" class="source-switch"></div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Platsbanken - Pendling demo</h1>
+        <form id="search-form" role="search" autocomplete="off">
+          <label for="search-input">Sök på yrke, plats eller fritext</label>
+          <div class="combo">
+            <div class="field">
+              <div id="chips" class="chips"></div>
+              <input
+                id="search-input"
+                type="text"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="suggestions"
+                placeholder="Skriv t.ex. sjukskötr, busschaufför eller Växjö"
+              />
+              <button id="clear-all" type="button" class="link" hidden>Rensa</button>
+            </div>
+            <ul id="suggestions" role="listbox" aria-label="Förslag" hidden></ul>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <main class="wrap layout" data-view="list">
+      <aside class="sidebar">
+        <section id="where">
+          <h2 id="where-title">Filtrera geografiskt</h2>
+          <div id="where-api"></div>
+          <form id="home-form" autocomplete="off">
+            <label for="home-address">Din hemadress</label>
+            <div class="row">
+              <input id="home-address" type="text" placeholder="T.ex. Drottninggatan 1, Uppsala" />
+              <button id="home-search" type="submit" class="secondary">Sök adress</button>
+            </div>
+          </form>
+          <div id="home-history"></div>
+          <div id="home-status" aria-live="polite"></div>
+          <div id="home-fallback">
+            <label for="home-municipality">Eller välj hemkommun</label>
+            <select id="home-municipality"><option value="">Välj kommun…</option></select>
+          </div>
+          <div id="range"></div>
+        </section>
+        <section>
+          <h2>Valda yrken</h2>
+          <div id="occ-api"></div>
+          <div id="occupations"></div>
+        </section>
+        <section>
+          <h2>Närliggande yrken</h2>
+          <div id="nearby-api"></div>
+          <div id="nearby"></div>
+        </section>
+        <section>
+          <h2>Kompetenser <small>(Kompetensväljaren)</small></h2>
+          <div id="skills-api"></div>
+          <div id="skills"></div>
+        </section>
+        <section>
+          <h2>Yrken i träffarna</h2>
+          <div id="facets-api"></div>
+          <ul id="facets" class="facets"></ul>
+        </section>
+      </aside>
+
+      <section id="results" aria-busy="false">
+        <div class="view-toggle" role="group" aria-label="Visa som">
+          <button type="button" data-view="list" aria-pressed="true">Lista</button>
+          <button type="button" data-view="map" aria-pressed="false">Karta</button>
+        </div>
+        <details class="debug">
+          <summary id="debug-title">Anrop till JobSearch <small>(riktiga) och mockade API:er</small></summary>
+          <div id="api-url"></div>
+        </details>
+        <p id="result-count" aria-live="polite"></p>
+        <div id="precision-filter" class="precision-filter"></div>
+        <ul id="result-list" class="result-list"></ul>
+        <button id="load-more" type="button" class="secondary" hidden>Visa fler</button>
+      </section>
+
+      <section class="map-panel" aria-labelledby="map-title">
+        <h2 id="map-title">Karta</h2>
+        <div id="map"></div>
+      </section>
+    </main>
+
+  </body>
+</html>

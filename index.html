@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platsbanken Pendling</title>
+<meta name="description" content="Film och klickbar demo: restid vid varje platsannons, beräknad i webbläsaren.">
+<style>
+  :root { --paper:#F7F0DF; --ink:#3D2B22; --muted:#77664F; --teal:#8EC7B2; --deep:#31594F; --gold:#E8BF56; --orange:#E98D68; --card:#FAF1DB; }
+  @media (prefers-color-scheme: dark) { :root { --paper:#211a15; --ink:#f3e8d2; --muted:#c4b697; --card:#2c241d; --deep:#8EC7B2; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.55 "Avenir Next", system-ui, sans-serif; }
+  main { max-width:980px; margin:0 auto; padding:40px 16px 64px; }
+  h1 { font-family:Georgia, serif; font-style:italic; font-size:clamp(32px,6vw,52px); margin:0 0 6px; }
+  .lead { color:var(--muted); margin:0 0 28px; font-size:19px; }
+  video { width:100%; border-radius:10px; background:#000; display:block; box-shadow:0 10px 40px #0003; }
+  .cta { display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 34px; }
+  .cta a { text-decoration:none; font-weight:700; padding:13px 22px; border-radius:8px; }
+  .primary { background:var(--deep); color:#fff; }
+  .secondary { border:2px solid var(--deep); color:var(--ink); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .card { background:var(--card); border-radius:10px; padding:18px 20px; border-left:6px solid var(--teal); }
+  .card:nth-child(2) { border-color:var(--gold); } .card:nth-child(3) { border-color:var(--orange); }
+  .card h2 { font-size:18px; margin:0 0 6px; } .card p { margin:0; color:var(--muted); font-size:16px; }
+  footer { margin-top:40px; color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Platsbanken Pendling</h1>
+  <p class="lead">Restid vid varje annons, beräknad direkt i webbläsaren. En film på drygt tre minuter, och demon den visar.</p>
+  <video controls preload="metadata" playsinline>
+    <source src="film.mp4" type="video/mp4">
+    <track kind="subtitles" src="film.vtt" srclang="sv" label="Svenska">
+  </video>
+  <div class="cta">
+    <a class="primary" href="demo/?demo=film">Prova demon själv</a>
+    <a class="secondary" href="film.mp4" download>Ladda ner filmen</a>
+  </div>
+  <div class="grid">
+    <section class="card"><h2>Sex verkliga annonser</h2><p>Ett fryst urval för sökordet Malmö. Ingen livesökning.</p></section>
+    <section class="card"><h2>Riktig vägberäkning</h2><p>Bil och cykel på ett regionalt OpenStreetMap-vägnät i sydvästra Skåne. Ingen kollektivtrafik eller rusning.</p></section>
+    <section class="card"><h2>Ingen SCB-data i den öppna demon</h2><p>Filmen visar hur en SCB-adress bekräftar en plats. Här används i stället en tydligt märkt påhittad registerrad, så att samma regel syns i arbete.</p></section>
+  </div>
+  <footer>Prototyp, inte en produktionstjänst. Kartdata © OpenStreetMap contributors. Filmens miljöbilder är AI-genererade på egen dator.</footer>
+</main>
+</body>
+</html>
