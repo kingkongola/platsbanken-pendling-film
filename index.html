@@ -18,10 +18,6 @@
   .cta a { text-decoration:none; font-weight:700; padding:13px 22px; border-radius:8px; }
   .primary { background:var(--deep); color:#fff; }
   .secondary { border:2px solid var(--deep); color:var(--ink); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
-  .card { background:var(--card); border-radius:10px; padding:18px 20px; border-left:6px solid var(--teal); }
-  .card:nth-child(2) { border-color:var(--gold); } .card:nth-child(3) { border-color:var(--orange); }
-  .card h2 { font-size:18px; margin:0 0 6px; } .card p { margin:0; color:var(--muted); font-size:16px; }
 
   .slide { margin:44px 0 20px; background:var(--card); border-radius:16px; padding:clamp(24px,5vw,48px); border-left:10px solid var(--deep); box-shadow:0 10px 40px #0002; }
   .slide h2 { font-family:Georgia, serif; font-style:italic; font-size:clamp(26px,5vw,42px); margin:0 0 20px; }
@@ -59,12 +55,6 @@
     <a class="primary" href="kartdemo/">Prova demon själv</a>
     <a class="secondary" href="film.mp4" download>Ladda ner filmen</a>
   </div>
-  <div class="grid">
-    <section class="card"><h2>Sex verkliga annonser</h2><p>Ett fryst urval för sökordet Malmö. Ingen livesökning.</p></section>
-    <section class="card"><h2>Riktig vägberäkning</h2><p>Bil och cykel på ett regionalt OpenStreetMap-vägnät i sydvästra Skåne. Ingen kollektivtrafik eller rusning.</p></section>
-    <section class="card"><h2>Ingen SCB-data i den öppna demon</h2><p>Filmen visar hur en SCB-adress bekräftar en plats. Här används i stället en tydligt märkt påhittad registerrad, så att samma regel syns i arbete.</p></section>
-  </div>
-
   <section class="slide" aria-labelledby="slide-title">
     <h2 id="slide-title">Vad berikningen ger</h2>
     <ul>
