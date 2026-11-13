@@ -14,7 +14,9 @@
   h1 { font-family:Georgia, serif; font-style:italic; font-size:clamp(32px,6vw,52px); margin:0 0 6px; }
   .lead { color:var(--muted); margin:0 0 28px; font-size:19px; }
   video { width:100%; border-radius:10px; background:#000; display:block; box-shadow:0 10px 40px #0003; }
-  .cta { display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 34px; }
+  .cta { display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 24px; }
+  .kartram { display:block; width:100%; height:clamp(620px,88vh,980px); border:0; border-radius:10px; background:var(--card); box-shadow:0 10px 40px #0003; }
+  @media (max-width:600px) { .kartram { height:80vh; min-height:560px; } }
   .cta a { text-decoration:none; font-weight:700; padding:13px 22px; border-radius:8px; }
   .primary { background:var(--deep); color:#fff; }
   .secondary { border:2px solid var(--deep); color:var(--ink); }
@@ -52,9 +54,9 @@
     <track kind="subtitles" src="film.vtt" srclang="sv" label="Svenska">
   </video>
   <div class="cta">
-    <a class="primary" href="kartdemo/">Prova demon själv</a>
-    <a class="secondary" href="film.mp4" download>Ladda ner filmen</a>
+    <a class="primary" href="kartdemo/" target="_blank" rel="noopener">Öppna kartan i ny flik</a>
   </div>
+  <iframe class="kartram" src="kartdemo/" title="Kartdemo" loading="lazy"></iframe>
   <section class="slide" aria-labelledby="slide-title">
     <h2 id="slide-title">Berikning av annonsdatat kan ge</h2>
     <ul>
