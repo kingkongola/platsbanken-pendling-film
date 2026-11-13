@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platsbanken - Pendling demo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+      integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+      integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" crossorigin src="./assets/index-_Ylmkfq8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-LHPfWC33.css">
+  </head>
+  <body>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Platsbanken - Pendling demo</h1>
+        <form id="search-form" role="search" autocomplete="off">
+          <label for="search-input">Sök på yrke, plats eller fritext</label>
+          <div class="combo">
+            <div class="field">
+              <div id="chips" class="chips"></div>
+              <input
+                id="search-input"
+                type="text"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="suggestions"
+                placeholder="Skriv t.ex. sjukskötr, busschaufför eller Växjö"
+              />
+              <button id="clear-all" type="button" class="link" hidden>Rensa</button>
+            </div>
+            <ul id="suggestions" role="listbox" aria-label="Förslag" hidden></ul>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <main class="wrap layout" data-view="list">
+      <aside class="sidebar">
+        <section id="where">
+          <h2 id="where-title">Filtrera geografiskt</h2>
+          <form id="home-form" autocomplete="off">
+            <label for="home-address">Din hemadress</label>
+            <div class="row">
+              <input id="home-address" type="text" placeholder="T.ex. Drottninggatan 1, Uppsala" />
+              <button id="home-search" type="submit" class="secondary">Sök adress</button>
+            </div>
+          </form>
+          <div id="home-history"></div>
+          <div id="home-status" aria-live="polite"></div>
+          <div id="home-fallback">
+            <label for="home-municipality">Eller välj hemkommun</label>
+            <select id="home-municipality"><option value="">Välj kommun…</option></select>
+          </div>
+          <div id="range"></div>
+        </section>
+        <section>
+          <h2>Valda yrken</h2>
+          <div id="occupations"></div>
+        </section>
+        <section class="panel" data-panel="nearby">
+          <h2><button type="button" class="panel-toggle" aria-expanded="true" aria-controls="nearby-body"><span>Närliggande yrken</span><svg class="chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
+          <div id="nearby-body">
+            <div id="nearby"></div>
+          </div>
+        </section>
+        <section class="panel" data-panel="skills" hidden>
+          <h2><button type="button" class="panel-toggle" aria-expanded="true" aria-controls="skills-body"><span>Kompetenser <small>(Kompetensväljaren)</small></span><svg class="chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
+          <div id="skills-body">
+            <div id="skills"></div>
+          </div>
+        </section>
+        <section>
+          <h2>Yrken i träffarna</h2>
+          <ul id="facets" class="facets"></ul>
+        </section>
+      </aside>
+
+      <section id="results" aria-busy="false">
+        <div id="dataset-tabs" class="dataset-tabs" role="tablist" aria-label="Dataset"></div>
+        <p id="berikat-summary" class="berikat-summary" hidden></p>
+        <div id="results-panel" role="tabpanel" aria-labelledby="tab-ursprungligt">
+        <div class="view-toggle" role="group" aria-label="Visa som">
+          <button type="button" data-view="list" aria-pressed="true">Lista</button>
+          <button type="button" data-view="map" aria-pressed="false">Karta</button>
+        </div>
+        <div class="result-head">
+          <p id="result-count" aria-live="polite"></p>
+        </div>
+        <div id="precision-filter" class="precision-filter"></div>
+        <ul id="result-list" class="result-list"></ul>
+        <button id="load-more" type="button" class="secondary" hidden>Visa fler</button>
+        <details id="uncertain" class="side-section side-section--uncertain" hidden open>
+          <summary><span id="uncertain-title"></span></summary>
+          <p class="muted">Annonser där platsen är osäker. De ingår inte i antalet ovan och tas aldrig bort, och varje annons visar varför platsen är osäker.</p>
+          <ul id="uncertain-list" class="result-list"></ul>
+          <button id="uncertain-more" type="button" class="secondary" hidden>Visa fler</button>
+        </details>
+        <details id="remote" class="side-section side-section--remote" hidden>
+          <summary><span id="remote-title"></span></summary>
+          <p class="muted">Distansarbete har ingen pendling. Annonserna räknas inte i antalet ovan och visas inte på kartan.</p>
+          <ul id="remote-list" class="result-list"></ul>
+          <button id="remote-more" type="button" class="secondary" hidden>Visa fler</button>
+        </details>
+        <details id="removed" class="side-section side-section--removed" hidden>
+          <summary><span id="removed-title"></span></summary>
+          <p class="muted">Annonser som Ursprungligt räknar som träffar, men som ligger utanför din pendlingsgräns enligt den berikade platsen. De ingår inte i något antal.</p>
+          <label class="toggle"><input type="checkbox" id="show-removed" checked> Visa på kartan</label>
+          <ul id="removed-list" class="result-list"></ul>
+        </details>
+        </div>
+      </section>
+
+      <section class="map-panel" aria-labelledby="map-title">
+        <h2 id="map-title">Karta</h2>
+        <div id="map"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p>Restider är uppskattningar och kan avvika från verkliga restider.</p></footer>
+
+  </body>
+</html>

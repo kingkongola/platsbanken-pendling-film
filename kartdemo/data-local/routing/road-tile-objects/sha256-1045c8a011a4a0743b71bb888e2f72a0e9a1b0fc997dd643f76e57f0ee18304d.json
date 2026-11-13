@@ -1,0 +1,1 @@
+{"schema_version":"road-route-tile-2","mode":"car","key":"600_151","index":338,"weights":[299.51,5,40.0,1734.0,7,20.0,2529.83,7,20.0],"chain_ids":[33848,167291,167292],"forward_offsets":[0,1,3],"forward_arcs":[20775002,0,22085638,3,20774915,4],"reverse_offsets":[0,1,3],"reverse_arcs":[20775002,1,22085638,2,20774915,5],"node_count":2}
